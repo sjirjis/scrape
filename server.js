@@ -22,7 +22,7 @@ app.use('/public', express.static('public'));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-mongoose.connect('mongodb://localhost/scrapedData');
+mongoose.connect('mongodb://heroku_sgzs54v9:pitscv2i4ab9e9tndbcle0l0ee@ds155651.mlab.com:55651/heroku_sgzs54v9');
 
 var db = mongoose.connection;
 
