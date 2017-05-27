@@ -8,6 +8,11 @@ var express = require('express'),
 var app = express(),
 	PORT = process.env.PORT || 3000;
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.text());
+app.use(bodyParser.json({type: "application/vnd.api+json"}));
+
 require('./controller/rootController')(app);
 require('./controller/scrapeController')(app);
 require('./controller/savedController')(app);
@@ -32,3 +37,8 @@ db.once('open', function(){
 app.listen(PORT, function(){
   console.log("App listening on PORT", PORT);
 });
+
+//function testing............
+
+
+

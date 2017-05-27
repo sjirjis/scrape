@@ -1,6 +1,60 @@
+var SavedArticles = require('../model/SavedArticles');
+
 module.exports = function(app) {
 
-    app.get("/saved", function(req, res) {
-        res.render('saved');
+    app.post("/addToSaved", function(req, res) {
+
+	    var newItem = new SavedArticles({
+		    headline: req.body.headline,
+		    url: req.body.url,
+		    scrapeId: req.body._id,
+	    });
+	    // Save the data in the scrapedData db
+	    newItem.save();        
+
+        res.end();
+    });
+
+    app.get('/saved', function(req, res) {
+		res.render('saved');	
+    });
+
+    app.get('/savedArticles', function(req, res) {
+
+	    SavedArticles.find(function(error, doc) {
+	        // Log any errors
+	        if (error) {
+	            console.log(error);
+	        }
+	        // Or send the doc to the browser as a json object
+	        else {
+	        	//console.log('/savedArticles:', doc);
+	            res.send(doc);
+	        }
+	    });    	
+    })
+
+    app.delete('/deleteSaved', function(req, res) {
+		//console.log(req.body.id);
+    	SavedArticles.findByIdAndRemove(req.body.id, function(err, todo) {
+    		console.log('delete successful');
+    	});
+
+    	res.send('deleted');
+    })
+
+    app.put('/addArticleNote', function(req, res) {
+    	SavedArticles.findOneAndUpdate({_id: req.body.id}, {notes: req.body.noteValue}, function() {
+    		SavedArticles.find({_id: req.body.id}, 'notes', function(err, docs) {
+    			res.send(docs[0]);
+    		});
+    	});
+    });
+
+    app.post('/getNotesById', function(req, res) {
+    	console.log(req.body)
+		SavedArticles.find({_id: req.body.id}, 'notes', function(err, docs) {
+			res.send(docs);
+		});
     });
 };
