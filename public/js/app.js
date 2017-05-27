@@ -90,7 +90,11 @@
 					if (data.notes === articleNoteUserInput.noteValue) {
 						$('.modal-title').html('<h4>Note Added!</h4>');
 						$('.modal-body').html('');	
-						$('#noteModal').modal('show');			
+						$('#noteModal').modal('show');	
+
+						setTimeout(function() { 
+					    	window.location.href = '/saved'
+						}, 1000 * 1); //1 second
 					}
 				}
 			});
