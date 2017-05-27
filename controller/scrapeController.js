@@ -11,6 +11,11 @@ module.exports = function(app) {
 		        // Load the html body from request into cheerio
 		        var $ = cheerio.load(html);
 
+		        Scrape.remove(function(err){
+					if (err) throw err;
+					else console.log('collection removed');
+				});
+
 		        // For each element with a "headline" class
 	            $(".headline").each(function(i, element) {
 	                
