@@ -65,15 +65,6 @@
 
 		console.log(articleNoteUserInput)
 
-		$.ajax({
-			url: '/getNotesById',
-			type: 'GET',
-			data: articleNoteUserInput,
-			success: function(data) {
-				console.log('server response', data)
-			}
-		});
-
 		$('#noteModal').modal('show');	
 
 		$('.submitArticleNoteUserInput').on('click', function() {			
